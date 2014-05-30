@@ -5,7 +5,7 @@ import java.io.Serializable;
 
 import ${pModelPath}.${pModelName};
 
-public interface ${pModelName?substring(1)?cap_first}ServiceI{
+public interface ${pModelName?substring(1)?cap_first}ServiceI extends BaseServiceI<${pModelName}>{
   /**
      * 增加
      */

@@ -6,7 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class BeanUtils extends org.springframework.beans.BeanUtils {
+ class BeanUtils extends org.springframework.beans.BeanUtils {
 	/**
 	 * 
 	 * @param obj 传入的对象实例
