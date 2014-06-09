@@ -19,10 +19,10 @@ import freemarker.template.TemplateExceptionHandler;
 import freemarker.template.Version;
 
 public class Codegen {
-//	public static void main(String[] args) throws Exception {
-//		Codegen f = new Codegen();
-//		f.genModule();
-//	}
+	public static void main(String[] args) throws Exception {
+		Codegen f = new Codegen();
+		f.genModule();
+	}
 
 	/**
 	 * 根据Constant里配置的module和entity产生 一套  三层结构
@@ -73,7 +73,7 @@ public class Codegen {
 			TaskVO t = new TaskVO();
 			t.setFtlName("ServerImpl.ftl");
 			t.setGenerateName(entity.substring(0, 1).toUpperCase()+ entity.substring(1) + "ServiceImpl.java");
-			t.setPackageName(Constant.MODULEPATH + ".service");
+			t.setPackageName(Constant.MODULEPATH + ".service.impl");
 			t.setEntityPath(Constant.MODULEPATH + ".entity");
 			t.setpModelPath(Constant.MODULEPATH + ".pageModel");
 			t.setModelName("T" + entity);
@@ -121,11 +121,12 @@ public class Codegen {
 
 		try {
 			//输出文件路径和文件，如果不存在就创建
-			File dir = new File(Constant.GENERATEDIR);
+			String packagePath = Constant.GENERATEDIR+t.getPackageName().replaceAll("\\.", File.separator)+File.separator;
+			File dir = new File(packagePath);
 			if (!(dir.isDirectory() && dir.exists())) {
 				dir.mkdirs();
 			}
-			File outputFile = new File(Constant.GENERATEDIR+ param.get("generateName").toString());
+			File outputFile = new File(packagePath+ param.get("generateName").toString());
 			if (!outputFile.exists()) {
 				outputFile.createNewFile();
 			}

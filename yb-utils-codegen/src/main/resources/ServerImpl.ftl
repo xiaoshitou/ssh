@@ -1,6 +1,8 @@
 package ${packageName};
 
 import java.io.Serializable;
+import com.yb.local.BeanUtils;
+import org.apache.log4j.Logger;
 
 import ${entityPath}.${modelName};
 import ${pModelPath}.${pModelName};
@@ -70,4 +72,6 @@ public class ${modelName?substring(1)?cap_first}ServiceImpl  implements ${modelN
       BeanUtils.copyProperties(t, pt);
       return pt;
     }
+    
+  
 }
