@@ -7,22 +7,20 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-
-
 import com.yb.local.BeanUtils;
 import com.yyb.manager.dao.MenuDaoI;
 import com.yyb.manager.entity.Tmenu;
+import com.yyb.manager.entity.Tuser;
 import com.yyb.manager.pageModel.Pmenu;
+import com.yyb.manager.pageModel.Puser;
 import com.yyb.manager.service.MenuManagerI;
 
 @Service("menuManager")
 @Transactional
-public class MenuManagerImpl implements MenuManagerI {
+public class MenuManagerImpl  implements MenuManagerI {
 
 	@Autowired
 	private MenuDaoI menuDao;
@@ -103,5 +101,7 @@ public class MenuManagerImpl implements MenuManagerI {
 		menu.setText("root");
 		return menuDao.save(menu);
 	}
+
+	
 
 }

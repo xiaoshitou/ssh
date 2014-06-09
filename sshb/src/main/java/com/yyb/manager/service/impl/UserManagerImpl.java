@@ -1,5 +1,7 @@
 package com.yyb.manager.service.impl;
 
+
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -11,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.yb.db.DbUtils;
 import com.yb.local.BeanUtils;
 import com.yb.local.DateUtil;
 import com.yb.local.PasswordUtil;
@@ -26,6 +29,7 @@ import com.yyb.manager.service.UserManagerI;
 public class UserManagerImpl  implements UserManagerI {
 	private static final Logger logger = Logger.getLogger(UserManagerImpl.class);
   
+	
 	@Autowired
 	private UserDaoI userDao;
 	
@@ -67,44 +71,47 @@ public class UserManagerImpl  implements UserManagerI {
 	}
 
 	@Override
+	@SuppressWarnings("unchecked")
 	public DataGrid datagrid(Puser puser) {
 		DataGrid d = new DataGrid();
-		Map map = buildHql(puser);
-		List<Puser> pl = new ArrayList<Puser>();
+		Tuser t = new Tuser();
+		BeanUtils.copyProperties(puser, t);
+		Map map = DbUtils.buildHql(t,puser.getSort(),puser.getOrder());
+		List<Puser> pl=new ArrayList<Puser>();
 	    List<Tuser> l=userDao.find(map.get("hql").toString(),(Map)map.get("params"), puser.getPage(),puser.getRows());
-	    changeModel(pl, l);
+	    changeModels(pl,l);
 	    d.setRows(pl);
 	    d.setTotal(userDao.count(map.get("countHql").toString(),(Map)map.get("params")));
 		return d;
 	}
 
-	private void changeModel(List<Puser> pl, List<Tuser> l) {
+	private void changeModels(List<Puser> pl, List<Tuser> l) {
 		if(l!=null&&l.size()>0){
            for (Tuser t : l) {
         	   Puser p=new Puser();
-        	   BeanUtils.copyProperties(t, p);
-			   pl.add(p);
+        	   BeanUtils.copyProperties(t, p); 
+        	    pl.add(p);
 		  }
 	    }
 	}
 	
-	private Map buildHql(Puser puser){
-		Map<String,Object> result= new HashMap<String, Object>();
-		Map<String, Object> params = new HashMap<String, Object>();
-		String hql="from Tuser t ";
-		if(!"".equals(puser.getName())&&puser.getName()!=null){
-			hql += " where t.name like :name";
-			params.put("name", "%"+puser.getName()+"%");
-		}
-		String countHql ="select count(*) "+hql;
-		if(puser.getSort()!=null){
-			hql += " order by " + puser.getSort() + " " + puser.getOrder();
-		}
-		result.put("hql", hql);
-		result.put("countHql", countHql);
-		result.put("params", params);
-		return result;
-	}
+//	public Map buildHql(Puser puser){
+//		Map<String,Object> result= new HashMap<String, Object>();
+//		Map<String, Object> params = new HashMap<String, Object>();
+//		String hql="from Tuser t ";
+//		if(!"".equals(puser.getName())&&puser.getName()!=null){
+//			hql += " where t.name like :name";
+//			params.put("name", "%"+puser.getName()+"%");
+//		}
+//		String countHql ="select count(*) "+hql;
+//		if(puser.getSort()!=null){
+//			hql += " order by " + puser.getSort() + " " + puser.getOrder();
+//		}
+//		result.put("hql", hql);
+//		result.put("countHql", countHql);
+//		result.put("params", params);
+//		return result;
+//	}
 
 	@Override
 	public Puser edit(Puser puser) {

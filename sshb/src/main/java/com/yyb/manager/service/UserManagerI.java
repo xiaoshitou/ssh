@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 import com.yyb.manager.entity.Tuser;
 import com.yyb.manager.pageModel.DataGrid;
+import com.yyb.manager.pageModel.Pmenu;
 import com.yyb.manager.pageModel.Puser;
 
 public interface UserManagerI {
