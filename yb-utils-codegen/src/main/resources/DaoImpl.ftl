@@ -2,6 +2,7 @@ package ${packageName};
 
 
 import org.springframework.stereotype.Repository;
+import com.yb.db.dao.impl.BaseDaoImpl;
 
 import ${daoPath}.${modelName?substring(1)?cap_first}DaoI;
 import ${entityPath}.${modelName};
