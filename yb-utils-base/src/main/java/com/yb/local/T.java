@@ -4,7 +4,10 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.List;
 import java.util.Locale;
+import java.util.Map;
+import java.util.Map.Entry;
 
 public class T {
 
@@ -19,8 +22,16 @@ public class T {
 //        String c;  
 //        while ((c = reader.readLine()) != null) { 
 //         	System.out.println(c);
-//        }    
-System.out.println("asd.asd.qwe".replaceAll("\\.", File.separator));
+//        }  
+		
+		OrderedProperties orderedProperties = new OrderedProperties();
+		orderedProperties.load(T.class.getResourceAsStream("test1.properties"));
+		//System.out.println(orderedProperties.toString());
+		
+		Map<String, String> values =orderedProperties.getValueMap();
+		for (Entry<String, String> v: values.entrySet()) {
+			System.out.println(v.getKey() +":"+v.getValue());
+		}
 		
 	}
 

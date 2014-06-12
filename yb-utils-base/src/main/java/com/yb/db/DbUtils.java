@@ -7,6 +7,9 @@ import java.util.Map.Entry;
 import com.yb.local.BeanUtils;
 
 public class DbUtils {
+	public static final String HQL = "HQL";
+	public static final String PARAMS = "PARAMS";
+	public static final String COUNTHQL = "COUNTHQL";
 	
 	 public static Map buildHql(Object t,String sort,String order){
 			Map<String,Object> result= new HashMap<String, Object>();
@@ -16,7 +19,7 @@ public class DbUtils {
 			
 			for (Entry<String, Object> entry : prop.entrySet()) {
 				if(entry.getValue()!=null&&!"serialVersionUID".equals(entry.getKey())){
-					hql += " where t."+entry.getKey().toUpperCase()+" like :"+entry.getKey();
+					hql += " where t."+entry.getKey()+" like :"+entry.getKey();
 					params.put(entry.getKey(), "%"+entry.getValue()+"%");
 				}
 			}
@@ -25,9 +28,9 @@ public class DbUtils {
 			if(sort!=null&&order!=null){
 				hql += " order by " + sort + " " +order;
 			}
-			result.put("hql", hql);
-			result.put("countHql", countHql);
-			result.put("params", params);
+			result.put(HQL, hql);
+			result.put(COUNTHQL, countHql);
+			result.put("PARAMS", params);
 			return result;
 		}
 }
