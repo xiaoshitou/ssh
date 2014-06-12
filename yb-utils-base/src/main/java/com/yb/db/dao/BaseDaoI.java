@@ -1,4 +1,4 @@
-package com.yyb.manager.dao;
+package com.yb.db.dao;
 
 import java.io.Serializable;
 import java.util.List;

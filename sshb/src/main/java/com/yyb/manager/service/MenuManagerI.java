@@ -3,7 +3,7 @@ package com.yyb.manager.service;
 import java.io.Serializable;
 import java.util.List;
 
-import com.yyb.manager.dao.BaseDaoI;
+
 import com.yyb.manager.entity.Tmenu;
 import com.yyb.manager.pageModel.Pmenu;
 

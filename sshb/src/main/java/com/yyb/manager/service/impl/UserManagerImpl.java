@@ -13,6 +13,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+
+
 import com.yb.db.DbUtils;
 import com.yb.local.BeanUtils;
 import com.yb.local.DateUtil;
@@ -78,10 +80,10 @@ public class UserManagerImpl  implements UserManagerI {
 		BeanUtils.copyProperties(puser, t);
 		Map map = DbUtils.buildHql(t,puser.getSort(),puser.getOrder());
 		List<Puser> pl=new ArrayList<Puser>();
-	    List<Tuser> l=userDao.find(map.get("hql").toString(),(Map)map.get("params"), puser.getPage(),puser.getRows());
+	    List<Tuser> l=userDao.find(map.get(DbUtils.HQL).toString(),(Map)map.get(DbUtils.PARAMS), puser.getPage(),puser.getRows());
 	    changeModels(pl,l);
 	    d.setRows(pl);
-	    d.setTotal(userDao.count(map.get("countHql").toString(),(Map)map.get("params")));
+	    d.setTotal(userDao.count(map.get(DbUtils.COUNTHQL).toString(),(Map)map.get(DbUtils.PARAMS)));
 		return d;
 	}
 
@@ -95,24 +97,6 @@ public class UserManagerImpl  implements UserManagerI {
 	    }
 	}
 	
-//	public Map buildHql(Puser puser){
-//		Map<String,Object> result= new HashMap<String, Object>();
-//		Map<String, Object> params = new HashMap<String, Object>();
-//		String hql="from Tuser t ";
-//		if(!"".equals(puser.getName())&&puser.getName()!=null){
-//			hql += " where t.name like :name";
-//			params.put("name", "%"+puser.getName()+"%");
-//		}
-//		String countHql ="select count(*) "+hql;
-//		if(puser.getSort()!=null){
-//			hql += " order by " + puser.getSort() + " " + puser.getOrder();
-//		}
-//		result.put("hql", hql);
-//		result.put("countHql", countHql);
-//		result.put("params", params);
-//		return result;
-//	}
-
 	@Override
 	public Puser edit(Puser puser) {
 		Tuser t= userDao.get(Tuser.class, puser.getId());

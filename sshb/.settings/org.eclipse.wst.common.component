@@ -9,6 +9,9 @@
         <dependent-module archiveName="yb-utils-codegen-0.0.1-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/yb-utils-codegen/yb-utils-codegen">
             <dependency-type>uses</dependency-type>
         </dependent-module>
+        <dependent-module archiveName="yb-utils-base-0.0.1-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/yb-utils-base/yb-utils-base">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
         <property name="context-root" value="sshe"/>
         <property name="java-output-path" value="/sshb/target/classes"/>
     </wb-module>

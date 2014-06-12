@@ -1,4 +1,4 @@
-package com.yyb.manager.dao.impl;
+package com.yb.db.dao.impl;
 
 import java.io.Serializable;
 import java.util.List;
@@ -11,9 +11,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate3.HibernateTemplate;
 import org.springframework.stereotype.Repository;
 
-import com.yyb.manager.dao.BaseDaoI;
+import com.yb.db.dao.BaseDaoI;
 
-@Repository("baseDao")
+
+
 public class BaseDaoImpl<T>  implements BaseDaoI<T> {
 
 	@Autowired
@@ -40,7 +41,7 @@ public class BaseDaoImpl<T>  implements BaseDaoI<T> {
 	 * 查询实体
 	 * @see sy.dao.BaseDaoI#save(java.lang.Object)
 	 */
-	@Override
+	
 	public T get(String hql) {
 		Query q =  this.getCurrentSession().createQuery(hql);
 		List<T> l = q.list();
@@ -52,7 +53,7 @@ public class BaseDaoImpl<T>  implements BaseDaoI<T> {
 /**
  * 根据输入的参数查询实体
  */
-	@Override
+	
 	public T get(String hql, Map<String, Object> params) {
 		Query q =  this.getCurrentSession().createQuery(hql);
 		if (params != null && !params.isEmpty()) {
@@ -71,14 +72,14 @@ public class BaseDaoImpl<T>  implements BaseDaoI<T> {
  * 删除实体
  * @see sy.dao.BaseDaoI#delete(java.lang.Object)
  */
-	@Override
+	
 	public void delete(T o) {
 		this.getCurrentSession().delete(o);
 	}
 /*
  *更新实体 
  */
-	@Override
+	
 	public void update(T o) {
 		this.getCurrentSession().update(o);
 	}
@@ -87,7 +88,7 @@ public class BaseDaoImpl<T>  implements BaseDaoI<T> {
  * 保存和更新
  * @see sy.dao.BaseDaoI#saveOrUpdate(java.lang.Object)
  */
-	@Override
+	
 	public void saveOrUpdate(T o) {
 		this.getCurrentSession().saveOrUpdate(o);
 	}
@@ -96,7 +97,7 @@ public class BaseDaoImpl<T>  implements BaseDaoI<T> {
  * getList
  * @see sy.dao.BaseDaoI#find(java.lang.String)
  */
-	@Override
+	
 	public List<T> find(String hql) {
 		Query q =  this.getCurrentSession().createQuery(hql);
 		return q.list();
@@ -106,7 +107,7 @@ public class BaseDaoImpl<T>  implements BaseDaoI<T> {
  * getLists集合
  * @see sy.dao.BaseDaoI#find(java.lang.String, java.util.Map)
  */
-	@Override
+	
 	public List<T> find(String hql, Map<String, Object> params) {
 		Query q =  this.getCurrentSession().createQuery(hql);
 		if (params != null && !params.isEmpty()) {
@@ -121,7 +122,7 @@ public class BaseDaoImpl<T>  implements BaseDaoI<T> {
  * 分页查询  带参数
  * @see sy.dao.BaseDaoI#find(java.lang.String, java.util.Map, int, int)
  */
-	@Override
+	
 	public List<T> find(String hql, Map<String, Object> params, int page, int rows) {
 		Query q =  this.getCurrentSession().createQuery(hql);
 		
@@ -137,19 +138,19 @@ public class BaseDaoImpl<T>  implements BaseDaoI<T> {
  * 分页查询   不带参数
  * @see sy.dao.BaseDaoI#find(java.lang.String, int, int)
  */
-	@Override
+	
 	public List<T> find(String hql, int page, int rows) {
 		Query q =  this.getCurrentSession().createQuery(hql);
 		return q.setFirstResult((page - 1) * rows).setMaxResults(rows).list();
 	}
 
-	@Override
+	
 	public Long count(String hql) {
 		Query q =  this.getCurrentSession().createQuery(hql);
 		return (Long) q.uniqueResult();
 	}
 
-	@Override
+	
 	public Long count(String hql, Map<String, Object> params) {
 		Query q = this.getCurrentSession().createQuery(hql);
 		if (params != null && !params.isEmpty()) {
@@ -159,13 +160,13 @@ public class BaseDaoImpl<T>  implements BaseDaoI<T> {
 		}
 		return (Long) q.uniqueResult();
 	}
-	@Override
+	
 	public int executeHql(String hql) {
 		Query q = this.getCurrentSession().createQuery(hql);
 		return q.executeUpdate();
 	}
 
-	@Override
+	
 	public T get(Class<T> c, Serializable id) {
 		return (T)this.getCurrentSession().get(c, id);
 	}
